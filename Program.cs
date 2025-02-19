@@ -81,6 +81,6 @@ public class Player
                 return false;
             }
         }
-        return true;
+        return true; // Spilleren har vundet
     }
 }
