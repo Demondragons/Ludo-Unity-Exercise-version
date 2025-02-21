@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour
 {
+    [SerializeField]
     public Player[] players = new Player[4];
-    private int currentPlayer = 0;
-    private bool gameActive = true; 
 
     private void Start()
-    {
+    {   
         players = Object.FindObjectsByType<Player>(FindObjectsSortMode.InstanceID); // Finder alle spillere i scenen
         if (players.Length == 0)
         {
@@ -41,12 +40,11 @@ public class GameLogic : MonoBehaviour
             for (int i = 0; i < players.Length; i++)
             {
                 int diceRoll = dice.RollDice();
-                bool winner = players[currentPlayer].DecideAndMovePiece(diceRoll);
+                bool winner = players[i].DecideAndMovePiece(diceRoll);
 
                 if (winner)
                 {
-                    Debug.Log("Winner is player " + (currentPlayer + 1));
-                    gameActive = false;
+                    Debug.Log("Winner is player " + (i + 1));
                     winnerFound = i;
                     yield break; // Stopper coroutine
                 }

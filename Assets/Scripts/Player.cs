@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         pieces = GetComponentsInChildren<GamePiece>(); // Finder brikker under spilleren
-        gameObject.SetActive(false);
+        //gameObject.SetActive(true);
     }
     public bool DecideAndMovePiece(int rollValue)
     {
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
             {
                 if (pieces[i].Position == 0)
                 {
-                    gameObject.SetActive(true);
+                    pieces[i].GetComponent<MeshRenderer>().enabled = true;
                     pieces[i].Move(1);
                     return false;
                 }
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < pieces.Length; i++)
             {
-                if (pieces[i].Position + rollValue <= 4000)
+                if (pieces[i].Position + rollValue <= 40)
                 {
                     pieces[i].Move(rollValue);
                     return false;
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
         }
         for (int i = 0; i < pieces.Length; i++)
         {
-            if (pieces[i].Position < 4000)
+            if (pieces[i].Position < 40)
             {
                 pieces[i].Move(rollValue);
                 return false;
