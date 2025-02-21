@@ -1,42 +1,71 @@
-using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameLogic : MonoBehaviour
 {
-    public Player[] players;    
+    public Player[] players = new Player[4];
     private int currentPlayer = 0;
-    private bool gameActive = true;
+    private bool gameActive = true; 
 
     private void Start()
     {
-        players = GetComponents<Player>(); // Finder alle spillere i scenen
+        players = Object.FindObjectsByType<Player>(FindObjectsSortMode.InstanceID); // Finder alle spillere i scenen
+        if (players.Length == 0)
+        {
+            Debug.LogError("No players found in the scene!");
+            return;
+        }
         StartCoroutine(GameLoop());
     }
+    int winnerFound = -1;
+    Dice dice = new Dice();
+    //While (winnerFound < 0)
+    //{
+    //    for (int i = 0; i < players.Length; i++)
+    //    {
+    //        int diceRoll = dice.RollDice();
+    //        bool winner = players[i].DecideAndMovePiece(diceRoll);
+    //        if (winner)
+    //        {
+    //            winnerFound = i;
+    //            break;
+    //        }
+    //    }
+    //}
 
     private IEnumerator GameLoop()
     {
-        while (gameActive)
+        while (winnerFound < 0)
         {
-            int diceRoll = RollDice();
-            bool winner = players[currentPlayer].DecideAndMovePiece(diceRoll);
-
-            if (winner)
+            for (int i = 0; i < players.Length; i++)
             {
-                Debug.Log("Winner is player " + (currentPlayer + 1));
-                gameActive = false;
+                int diceRoll = dice.RollDice();
+                bool winner = players[currentPlayer].DecideAndMovePiece(diceRoll);
+
+                if (winner)
+                {
+                    Debug.Log("Winner is player " + (currentPlayer + 1));
+                    gameActive = false;
+                    winnerFound = i;
+                    yield break; // Stopper coroutine
+                }
+
+                yield return new WaitForSeconds(0.1f); // Gør hvert træk synligt
             }
 
-            yield return new WaitForSeconds(1f); // Gør hvert træk synligt
-
-            currentPlayer = (currentPlayer + 1) % players.Length;
         }
     }
-
-    private System.Random random = new System.Random();
-    public int RollDice()
+    public class Dice
     {
-        return random.Next(1, 7);
+        public int RollDice()
+        {
+            return Random.Range(1, 7);
+        }
     }
+    //private Random random = new Random();
+    //public int RollDice()
+    //{
+    //    return Random.Range(1, 7); // Unitys Random-funktion
+    //}
 }
