@@ -16,10 +16,10 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < pieces.Length; i++)
             {
-                if (pieces[i].Position == 0)
+                if (pieces[i].transform.position.x == 0)
                 {
                     pieces[i].GetComponent<MeshRenderer>().enabled = true;
-                    pieces[i].Move(1);
+                    pieces[i].GetComponent<GamePiece>().Move(1);
                     return false;
                 }
             }
@@ -28,18 +28,18 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < pieces.Length; i++)
             {
-                if (pieces[i].Position + rollValue <= 40)
+                if (pieces[i].transform.position.x + rollValue <= 80)
                 {
-                    pieces[i].Move(rollValue);
+                    pieces[i].GetComponent<GamePiece>().Move(rollValue);
                     return false;
                 }
             }
         }
         for (int i = 0; i < pieces.Length; i++)
         {
-            if (pieces[i].Position < 40)
+            if (pieces[i].transform.position.x < 80)
             {
-                pieces[i].Move(rollValue);
+                pieces[i].GetComponent<GamePiece>().Move(rollValue);
                 return false;
             }
         }

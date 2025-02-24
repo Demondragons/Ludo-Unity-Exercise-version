@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GamePiece : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class GamePiece : MonoBehaviour
 
         public void Move(int x)
         {
-            position += x;
+            transform.position = transform.position + new Vector3(x * 2, 0, 0);
         }
 
 }

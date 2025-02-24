@@ -5,19 +5,19 @@ for (int i = 0; i < players.Length; i++)
 }
 int winnerFound = -1;
 Dice dice = new Dice();
-while (winnerFound < 0)
-{
-    for (int i = 0; i < players.Length;i++)
+    while (winnerFound < 0)
     {
-        int diceRoll = dice.RollDice();
-        bool winner = players[i].DecideAndMovePiece(diceRoll);
-        if (winner)
+        for (int i = 0; i < players.Length;i++)
         {
-            winnerFound = i;
-            break;
+            int diceRoll = dice.RollDice();
+            bool winner = players[i].DecideAndMovePiece(diceRoll);
+            if (winner)
+            {
+                winnerFound = i;
+                break;
+            }
         }
     }
-}
 Console.WriteLine("winner is player " + winnerFound);
 
 public class GamePiece
