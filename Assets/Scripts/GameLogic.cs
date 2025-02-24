@@ -49,7 +49,7 @@ public class GameLogic : MonoBehaviour
                     yield break; // Stopper coroutine
                 }
 
-                yield return new WaitForSeconds(0.1f); // Gør hvert træk synligt
+                yield return new WaitForSeconds(0.2f); // Gør hvert træk synligt
             }
 
         }
