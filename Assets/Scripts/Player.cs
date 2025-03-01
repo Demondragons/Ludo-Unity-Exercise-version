@@ -34,14 +34,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        for (int i = 0; i < pieces.Length; i++)
-        {
-            if (pieces[i].transform.position.x < 80 && pieces[i].transform.position.x > 0) // Hvis ingen brikker har flyttet sig, prøver vi igen at finde en brik, der kan bevæge sig
-            {
-                pieces[i].GetComponent<GamePiece>().Move(rollValue);
-                return false; // Turen slutter
-            }
-        }
         for (int i = 0; i < pieces.Length; i++) // Hvis alle brikker har nået slutpositionen, returneres true for at signalere, at spilleren er færdig
         {
             if(pieces[i].transform.position.x < 80) 
