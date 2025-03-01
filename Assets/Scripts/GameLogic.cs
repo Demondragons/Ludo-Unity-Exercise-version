@@ -5,34 +5,34 @@ using UnityEngine;
 public class GameLogic : MonoBehaviour
 {
     [SerializeField]
-    public Player[] players = new Player[4];
+    public Player[] players = new Player[4]; // Array til at holde styr på spillerne
 
     private void Start()
     {   
         players = Object.FindObjectsByType<Player>(FindObjectsSortMode.InstanceID); // Finder alle spillere i scenen
         if (players.Length == 0)
         {
-            Debug.LogError("No players found in the scene!");
+            Debug.LogError("No players found in the scene!"); // Fejlmeddelelse, hvis ingen spillere findes
             return;
         }
-        StartCoroutine(GameLoop());
+        StartCoroutine(GameLoop()); // Starter spillets hoved-loop som en coroutine
     }
-    int winnerFound = -1;
+    int winnerFound = -1; // Variabel til at holde styr på vinderen
     Dice dice = new Dice();
 
     private IEnumerator GameLoop()
     {
-        while (winnerFound < 0)
+        while (winnerFound < 0) // Spillet fortsætter, indtil en spiller har vundet
         {
-            for (int i = 0; i < players.Length; i++)
+            for (int i = 0; i < players.Length; i++) // Gennemgår alle spillere
             {
-                int diceRoll = dice.RollDice();
+                int diceRoll = dice.RollDice(); // Spilleren ruller en terning
                 Debug.Log("Player " + (i + 1) + " rolled: " + diceRoll); // Debug output for dice roll
-                bool winner = players[i].DecideAndMovePiece(diceRoll);
+                bool winner = players[i].DecideAndMovePiece(diceRoll); // Spilleren forsøger at flytte en brik
 
                 if (winner)
                 {
-                    Debug.Log("Winner is player " + (i + 1));
+                    Debug.Log("Winner is player " + (i + 1)); 
                     winnerFound = i;
                     yield break; // Stopper coroutine
                 }
@@ -46,7 +46,7 @@ public class GameLogic : MonoBehaviour
     {
         public int RollDice()
         {
-            return Random.Range(1, 7);
+            return Random.Range(1, 7); // Returnerer et tilfældigt tal mellem 1 og 6
         }
     }
 }
