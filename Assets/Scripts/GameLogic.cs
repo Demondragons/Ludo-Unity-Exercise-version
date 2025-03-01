@@ -19,19 +19,6 @@ public class GameLogic : MonoBehaviour
     }
     int winnerFound = -1;
     Dice dice = new Dice();
-    //While (winnerFound < 0)
-    //{
-    //    for (int i = 0; i < players.Length; i++)
-    //    {
-    //        int diceRoll = dice.RollDice();
-    //        bool winner = players[i].DecideAndMovePiece(diceRoll);
-    //        if (winner)
-    //        {
-    //            winnerFound = i;
-    //            break;
-    //        }
-    //    }
-    //}
 
     private IEnumerator GameLoop()
     {
@@ -40,6 +27,7 @@ public class GameLogic : MonoBehaviour
             for (int i = 0; i < players.Length; i++)
             {
                 int diceRoll = dice.RollDice();
+                Debug.Log("Player " + (i + 1) + " rolled: " + diceRoll); // Debug output for dice roll
                 bool winner = players[i].DecideAndMovePiece(diceRoll);
 
                 if (winner)
@@ -61,9 +49,4 @@ public class GameLogic : MonoBehaviour
             return Random.Range(1, 7);
         }
     }
-    //private Random random = new Random();
-    //public int RollDice()
-    //{
-    //    return Random.Range(1, 7); // Unitys Random-funktion
-    //}
 }
